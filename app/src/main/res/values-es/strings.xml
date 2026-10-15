@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lector de Libros</string>
+    <string name="lendo_agora">Leyendo</string>
+    <string name="livros">Libros</string>
+    <string name="favoritos">⭐ Favoritos</string>
+    <string name="para_ler">🕘 Por leer</string>
+    <string name="lidos">✓ Leídos</string>
+    <string name="buscar">Buscar libro o autor</string>
+    <string name="abrir_arquivo">Abrir libro</string>
+    <string name="procurando">Buscando libros…</string>
+    <string name="nenhum">No hay libros aquí.</string>
+    <string name="permissao_texto">Para encontrar los libros (EPUB, FB2 y PDF) del teléfono, la app necesita acceso a los archivos. Solo lee los libros y nada sale de tu teléfono.</string>
+    <string name="permitir">Permitir acceso</string>
+    <string name="favorito">Favorito</string>
+    <string name="marcar_para_ler">Por leer</string>
+    <string name="marcar_lido">Leído</string>
+    <string name="autor_desconhecido">Autor desconocido</string>
+    <string name="abrindo">Abriendo…</string>
+    <string name="erro_abrir">No se pudo abrir este libro.</string>
+    <string name="pdf_senha">Este PDF tiene contraseña.</string>
+    <string name="voltar">Volver</string>
+    <string name="sumario">Índice</string>
+    <string name="aparencia">Apariencia</string>
+    <string name="tamanho_letra">Tamaño de letra</string>
+    <string name="tema">Tema</string>
+    <string name="claro">Claro</string>
+    <string name="sepia">Sepia</string>
+    <string name="escuro">Oscuro</string>
+    <string name="fonte">Fuente</string>
+    <string name="serifa">Con serifa</string>
+    <string name="sem_serifa">Sin serifa</string>
+    <string name="anterior">‹ Anterior</string>
+    <string name="proximo">Siguiente ›</string>
+    <string name="capitulo">Capítulo %1$d</string>
+    <string name="parte">Parte %1$d</string>
+    <string name="progresso">%1$d%%</string>
+    <string name="fim_livro">Fin del libro 🎉</string>
+    <string name="marcar_como_lido">Marcar como leído</string>
+    <string name="pagina_de">%1$d / %2$d</string>
+    <string name="remover">Quitar de la biblioteca</string>
+    <string name="mais">Más opciones</string>
+    <string name="fechar">Cerrar</string>
+</resources>

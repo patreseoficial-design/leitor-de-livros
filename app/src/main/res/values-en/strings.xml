@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Book Reader</string>
+    <string name="lendo_agora">Reading now</string>
+    <string name="livros">Books</string>
+    <string name="favoritos">⭐ Favorites</string>
+    <string name="para_ler">🕘 To read</string>
+    <string name="lidos">✓ Finished</string>
+    <string name="buscar">Search book or author</string>
+    <string name="abrir_arquivo">Open book</string>
+    <string name="procurando">Looking for books…</string>
+    <string name="nenhum">No books here.</string>
+    <string name="permissao_texto">To find the books (EPUB, FB2 and PDF) on your phone, the app needs file access. It only reads books and nothing leaves your phone.</string>
+    <string name="permitir">Allow access</string>
+    <string name="favorito">Favorite</string>
+    <string name="marcar_para_ler">To read</string>
+    <string name="marcar_lido">Finished</string>
+    <string name="autor_desconhecido">Unknown author</string>
+    <string name="abrindo">Opening…</string>
+    <string name="erro_abrir">Couldn\'t open this book.</string>
+    <string name="pdf_senha">This PDF is password protected.</string>
+    <string name="voltar">Back</string>
+    <string name="sumario">Contents</string>
+    <string name="aparencia">Appearance</string>
+    <string name="tamanho_letra">Text size</string>
+    <string name="tema">Theme</string>
+    <string name="claro">Light</string>
+    <string name="sepia">Sepia</string>
+    <string name="escuro">Dark</string>
+    <string name="fonte">Font</string>
+    <string name="serifa">Serif</string>
+    <string name="sem_serifa">Sans serif</string>
+    <string name="anterior">‹ Previous</string>
+    <string name="proximo">Next ›</string>
+    <string name="capitulo">Chapter %1$d</string>
+    <string name="parte">Part %1$d</string>
+    <string name="progresso">%1$d%%</string>
+    <string name="fim_livro">The end 🎉</string>
+    <string name="marcar_como_lido">Mark as finished</string>
+    <string name="pagina_de">%1$d / %2$d</string>
+    <string name="remover">Remove from library</string>
+    <string name="mais">More options</string>
+    <string name="fechar">Close</string>
+</resources>
