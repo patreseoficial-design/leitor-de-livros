@@ -27,7 +27,7 @@ Depois disso, cada build gera o artefato **`app-release-playstore`** (o `.aab` d
 **Descrição curta** (até 80 caracteres):
 
 ```
-Leia livros EPUB, FB2, PDF e TXT com temas, sumário e o ponto onde parou.
+Importe seus livros PDF e EPUB, leia ou ouça em voz alta. Sem anúncios.
 ```
 
 **Descrição completa:**
@@ -36,9 +36,17 @@ Leia livros EPUB, FB2, PDF e TXT com temas, sumário e o ponto onde parou.
 Sua biblioteca no bolso. Leia livros EPUB, FB2, PDF e TXT com conforto, sem anúncios.
 
 📚 BIBLIOTECA COM CAPAS
-• O app encontra sozinho os livros do celular
-• Lendo agora, Favoritos, Para ler e Lidos
+• Importe livros em PDF ou EPUB (também FB2 e TXT)
+• Continuar lendo, Lendo agora, Favoritos, Para ler e Lidos
 • Busque por título ou autor
+
+🎧 OUÇA SEUS LIVROS
+• O celular lê o livro em voz alta, até com a tela desligada
+• Velocidade de 0,75x a 2x e controles na notificação
+• Continue lendo exatamente onde a voz parou
+
+🛍️ LOJA (EM BREVE)
+• Nossa própria biblioteca de livros para você ler direto no app
 
 📖 LEITURA CONFORTÁVEL
 • Toque nas laterais ou use os botões de volume para virar a página
@@ -65,7 +73,7 @@ Sua biblioteca no bolso. Leia livros EPUB, FB2, PDF e TXT com conforto, sem anú
 **Imagens:**
 - Ícone 512 × 512 px: está em `docs/icone-512.png`
 - Imagem de destaque 1024 × 500 px
-- Pelo menos 2 capturas de tela: a biblioteca com as capas, um livro aberto no tema sépia e o sumário
+- Pelo menos 2 capturas de tela: o Início com "Continuar lendo", a biblioteca com as capas, um livro aberto no tema sépia e o player "Ouvir"
 
 **Política de privacidade (URL):**
 
@@ -82,18 +90,17 @@ https://github.com/patreseoficial-design/politica-privacidade/blob/main/leitor-d
 - **Classificação de conteúdo:** Utilitário/Produtividade, sem violência, sem conteúdo sexual, sem interação entre usuários → **Livre**
 - **Público-alvo:** 18 anos ou mais (ou 13+)
 
-### Declaração: Acesso a todos os arquivos (MANAGE_EXTERNAL_STORAGE)
+### Declaração: Serviço em primeiro plano (FOREGROUND_SERVICE_MEDIA_PLAYBACK)
 
-- Tipo de uso: **Gerenciamento de documentos** (Document management)
-- Texto:
+O Play Console pergunta por que o app usa um serviço em primeiro plano. Escolha **Reprodução de mídia** (Media playback) e use o texto:
 
 ```
-O app é um leitor de livros digitais (e-books). Sua função principal é encontrar e abrir os livros do usuário (EPUB, FB2 e PDF) que estão em qualquer pasta do aparelho, como Downloads, Livros e WhatsApp, montando uma biblioteca com capas e o progresso de leitura. Esses arquivos não são mídia, então não aparecem pelas permissões de fotos/vídeos/áudio, e o seletor do sistema não permite listar todos os livros do aparelho de uma vez. O app só lê os arquivos, não altera nem apaga nada, e não envia nenhum arquivo para a internet (o app não tem permissão de internet). O usuário também pode usar o app sem essa permissão, abrindo cada livro pelo seletor do sistema.
+O recurso "Ouvir" lê o livro em voz alta usando o Text-to-Speech do aparelho. A leitura é iniciada pelo usuário e continua com a tela desligada ou com outro app aberto, como um audiolivro. Uma notificação mostra o livro e tem os botões de pausar, avançar, voltar e fechar. O serviço para quando o usuário fecha a notificação ou o livro termina.
 ```
 
-- **Vídeo:** grave a tela mostrando: o app pedindo o acesso, a biblioteca com livros de várias pastas e um livro sendo aberto. Suba no YouTube como "não listado" e cole o link.
+- **Vídeo:** grave a tela abrindo um livro, tocando em "Ouvir", desligando a tela e mostrando a notificação com os controles. Suba no YouTube como "não listado" e cole o link.
 
-> Se o Google recusar, o app continua funcionando sem essa permissão (botão "Abrir livro" e "Abrir com"). Aí é só tirar a permissão do manifesto e mandar de novo.
+O app **não** pede mais acesso a todos os arquivos: os livros entram pelo botão **Importar** (seletor do sistema) ou pelo "Abrir com".
 
 ---
 

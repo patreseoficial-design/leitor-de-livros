@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Lector de Libros</string>
+    <string name="inicio">Inicio</string>
+    <string name="biblioteca">Biblioteca</string>
+    <string name="loja">Tienda</string>
+    <string name="continuar_lendo">Seguir leyendo</string>
     <string name="lendo_agora">Leyendo</string>
-    <string name="livros">Libros</string>
-    <string name="favoritos">⭐ Favoritos</string>
-    <string name="para_ler">🕘 Por leer</string>
-    <string name="lidos">✓ Leídos</string>
-    <string name="buscar">Buscar libro o autor</string>
-    <string name="abrir_arquivo">Abrir libro</string>
-    <string name="procurando">Buscando libros…</string>
+    <string name="para_ler">Por leer</string>
+    <string name="adicionados">Añadidos recientemente</string>
+    <string name="lidos">Leídos</string>
+    <string name="todos">Todos</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="buscar">Buscar título o autor</string>
+    <string name="importar">Importar PDF o EPUB</string>
+    <string name="importar_curto">Importar</string>
+    <string name="importando">Importando…</string>
+    <string name="importado">Libro añadido a la biblioteca</string>
+    <string name="boas_vindas">Tu biblioteca empieza aquí</string>
+    <string name="boas_vindas_texto">Importa libros en PDF o EPUB (también FB2 y TXT) y lee o escucha cuando quieras.</string>
     <string name="nenhum">No hay libros aquí.</string>
-    <string name="permissao_texto">Para encontrar los libros (EPUB, FB2 y PDF) del teléfono, la app necesita acceso a los archivos. Solo lee los libros y nada sale de tu teléfono.</string>
-    <string name="permitir">Permitir acceso</string>
-    <string name="favorito">Favorito</string>
-    <string name="marcar_para_ler">Por leer</string>
-    <string name="marcar_lido">Leído</string>
+    <string name="loja_titulo">Nuestra biblioteca está llegando</string>
+    <string name="loja_texto">Pronto podrás elegir libros aquí mismo y empezar a leer al instante. Mientras tanto, importa tus libros en PDF o EPUB.</string>
+    <string name="em_breve">PRÓXIMAMENTE</string>
     <string name="autor_desconhecido">Autor desconocido</string>
     <string name="abrindo">Abriendo…</string>
     <string name="erro_abrir">No se pudo abrir este libro.</string>
@@ -36,9 +43,39 @@
     <string name="parte">Parte %1$d</string>
     <string name="progresso">%1$d%%</string>
     <string name="fim_livro">Fin del libro 🎉</string>
-    <string name="marcar_como_lido">Marcar como leído</string>
+    <string name="marcar_como_lido">Marcar como terminado</string>
     <string name="pagina_de">%1$d / %2$d</string>
     <string name="remover">Quitar de la biblioteca</string>
+    <string name="remover_pergunta">¿Quitar \"%1$s\" de la biblioteca?</string>
     <string name="mais">Más opciones</string>
     <string name="fechar">Cerrar</string>
+    <string name="detalhes">Detalles del título</string>
+    <string name="ler">Leer</string>
+    <string name="ouvir">Escuchar</string>
+    <string name="add_favoritos">Añadir a favoritos</string>
+    <string name="tirar_favoritos">Quitar de favoritos</string>
+    <string name="add_para_ler">Añadir a Por leer</string>
+    <string name="tirar_para_ler">Quitar de Por leer</string>
+    <string name="desmarcar_lido">Marcar como no leído</string>
+    <string name="compartilhar">Compartir</string>
+    <string name="compartilhar_com">Compartir libro</string>
+    <string name="detalhes_texto">Autor: %1$s
+Formato: %2$s
+Tamaño: %3$s
+Leído: %4$d%%</string>
+    <string name="restante">Faltan %1$s</string>
+    <string name="velocidade">Velocidad</string>
+    <string name="paragrafo_anterior">Párrafo anterior</string>
+    <string name="proximo_paragrafo">Párrafo siguiente</string>
+    <string name="tocar">Reproducir</string>
+    <string name="pausar">Pausar</string>
+    <string name="ouvindo">Escuchando</string>
+    <string name="canal_ouvir">Lectura en voz alta</string>
+    <string name="sem_voz">No hay una voz instalada para leer en voz alta. Instálala en Ajustes › Accesibilidad › Salida de texto a voz.</string>
+    <string name="pdf_sem_audio">Los libros en PDF no se pueden escuchar. Usa EPUB, FB2 o TXT.</string>
+    <string name="capitulo_de">%1$s — %2$s</string>
+    <string name="marcado_lido">Marcado como terminado</string>
+    <string name="erro_importar">No se pudo importar este archivo.</string>
+    <string name="removido">Eliminado de la biblioteca</string>
+    <string name="ver_tudo">Ver todo</string>
 </resources>

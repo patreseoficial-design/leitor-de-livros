@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fundo">#FF0E2329</color>
-    <color name="cartao">#FF15313A</color>
-    <color name="chip">#FF1E3E48</color>
-    <color name="texto">#FFEFF4F5</color>
-    <color name="texto2">#FF94AAB0</color>
-    <color name="destaque">#FFF7A928</color>
-    <color name="azul">#FF1565C0</color>
-    <color name="trilho">#FF2A4A54</color>
+    <!-- Azul-noite com laranja -->
+    <color name="fundo">#FF0A1220</color>
+    <color name="fundo2">#FF0E1A2E</color>
+    <color name="cartao">#FF15243C</color>
+    <color name="chip">#FF1C2D48</color>
+    <color name="texto">#FFF4F6FA</color>
+    <color name="texto2">#FF98A6BD</color>
+    <color name="destaque">#FFF7991C</color>
+    <color name="destaque_escuro">#FF1A1206</color>
+    <color name="trilho">#FF2A3A55</color>
+    <color name="branco">#FFFFFFFF</color>
 </resources>

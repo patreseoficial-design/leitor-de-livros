@@ -53,6 +53,15 @@
             android:textSize="16sp" />
 
         <ImageButton
+            android:id="@+id/btnOuvirLeitor"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ouvir"
+            android:src="@drawable/ic_fones"
+            android:tint="@color/destaque" />
+
+        <ImageButton
             android:id="@+id/btnSumario"
             android:layout_width="48dp"
             android:layout_height="48dp"

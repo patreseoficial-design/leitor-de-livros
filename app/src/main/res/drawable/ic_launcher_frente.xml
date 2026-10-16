@@ -4,11 +4,11 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     <!-- Livro aberto -->
-    <path android:fillColor="#FFF7A928" android:pathData="M54,38c-6,-4.5 -14,-6 -24,-5.5v39c10,-0.5 18,1 24,5.5z" />
-    <path android:fillColor="#FFFFC65C" android:pathData="M54,38c6,-4.5 14,-6 24,-5.5v39c-10,-0.5 -18,1 -24,5.5z" />
-    <path android:fillColor="#FF0E2329" android:pathData="M53,38h2v39h-2z" />
-    <path android:fillColor="#B30E2329" android:pathData="M35,42h13v2h-13zM35,48h13v2h-13zM35,54h13v2h-13zM35,60h10v2h-10z" />
-    <path android:fillColor="#B30E2329" android:pathData="M60,42h13v2h-13zM60,48h13v2h-13zM60,54h13v2h-13zM60,60h10v2h-10z" />
+    <path android:fillColor="#FFF7991C" android:pathData="M54,38c-6,-4.5 -14,-6 -24,-5.5v39c10,-0.5 18,1 24,5.5z" />
+    <path android:fillColor="#FFFFB54D" android:pathData="M54,38c6,-4.5 14,-6 24,-5.5v39c-10,-0.5 -18,1 -24,5.5z" />
+    <path android:fillColor="#FF0A1220" android:pathData="M53,38h2v39h-2z" />
+    <path android:fillColor="#B30A1220" android:pathData="M35,42h13v2h-13zM35,48h13v2h-13zM35,54h13v2h-13zM35,60h10v2h-10z" />
+    <path android:fillColor="#B30A1220" android:pathData="M60,42h13v2h-13zM60,48h13v2h-13zM60,54h13v2h-13zM60,60h10v2h-10z" />
     <!-- Marcador -->
-    <path android:fillColor="#FFE53935" android:pathData="M66,30h6v14l-3,-2.5 -3,2.5z" />
+    <path android:fillColor="#FFF4F6FA" android:pathData="M66,30h6v14l-3,-2.5 -3,2.5z" />
 </vector>

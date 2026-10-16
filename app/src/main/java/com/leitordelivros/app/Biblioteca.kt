@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
 import android.view.View
@@ -34,6 +33,8 @@ class Livro(
     var lido: Boolean = false,
     var ultimaLeitura: Long = 0L,
     var metaLida: Boolean = false,
+    /** Nome do capítulo onde parou (aparece em "Continuar lendo") */
+    var rotulo: String = "",
 ) {
     val uri: Uri get() = Uri.parse(chave)
 
@@ -42,6 +43,7 @@ class Livro(
         .put("tamanho", tamanho).put("data", data).put("capa", capa).put("progresso", progresso.toDouble())
         .put("capitulo", capitulo).put("posicao", posicao.toDouble()).put("favorito", favorito)
         .put("paraLer", paraLer).put("lido", lido).put("ultimaLeitura", ultimaLeitura).put("metaLida", metaLida)
+        .put("rotulo", rotulo)
 
     companion object {
         val FORMATOS = listOf("epub", "fb2", "pdf", "txt")
@@ -65,6 +67,7 @@ class Livro(
             lido = o.optBoolean("lido"),
             ultimaLeitura = o.optLong("ultimaLeitura"),
             metaLida = o.optBoolean("metaLida"),
+            rotulo = o.optString("rotulo"),
         )
     }
 }
@@ -84,7 +87,12 @@ object Biblioteca {
             val f = arquivo(ctx)
             if (f.exists()) {
                 val a = JSONArray(f.readText())
-                for (i in 0 until a.length()) Livro.deJson(a.getJSONObject(i)).let { m[it.chave] = it }
+                for (i in 0 until a.length()) {
+                    val l = Livro.deJson(a.getJSONObject(i))
+                    // Arquivos achados no armazenamento por versões antigas, que o app não lê mais
+                    if (l.uri.scheme == "file" && !File(l.uri.path ?: "").canRead()) continue
+                    m[l.chave] = l
+                }
             }
         } catch (e: Exception) {
         }
@@ -106,27 +114,27 @@ object Biblioteca {
         }
     }
 
-    private fun ocultos(ctx: Context): MutableSet<String> =
-        ctx.getSharedPreferences("biblioteca", Context.MODE_PRIVATE).getStringSet("ocultos", emptySet())!!.toMutableSet()
+    private fun pasta(ctx: Context) = File(ctx.filesDir, "livros").apply { mkdirs() }
 
     @Synchronized
     fun remover(ctx: Context, livro: Livro) {
         todos(ctx).remove(livro.chave)
-        // Não volta na próxima busca do armazenamento
-        val o = ocultos(ctx).apply { add(livro.chave) }
-        ctx.getSharedPreferences("biblioteca", Context.MODE_PRIVATE).edit().putStringSet("ocultos", o).apply()
         if (livro.capa.isNotEmpty()) File(livro.capa).delete()
+        // Apaga a cópia importada (só as que estão dentro do app)
+        if (livro.uri.scheme == "file") {
+            val f = File(livro.uri.path ?: "")
+            if (f.parentFile == pasta(ctx)) f.delete()
+        }
         salvar(ctx)
     }
 
-    /** Coloca (ou acha) um livro aberto por outro app ou pelo seletor de arquivos. */
-    @Synchronized
-    fun registrar(ctx: Context, uri: Uri, mime: String?): Livro {
-        todos(ctx)[uri.toString()]?.let { return it }
-        val o = ocultos(ctx)
-        if (o.remove(uri.toString())) {
-            ctx.getSharedPreferences("biblioteca", Context.MODE_PRIVATE).edit().putStringSet("ocultos", o).apply()
-        }
+    /**
+     * Copia um livro escolhido pela pessoa (ou aberto por outro app) para dentro do app,
+     * assim ele continua na biblioteca mesmo sem permissão para o arquivo original.
+     * Lento: chamar fora da thread principal.
+     */
+    fun importar(ctx: Context, uri: Uri, mime: String?): Livro {
+        synchronized(this) { todos(ctx)[uri.toString()] }?.let { return it }
         var nome = uri.lastPathSegment?.substringAfterLast('/') ?: "livro"
         var tamanho = 0L
         if (uri.scheme == "file") {
@@ -151,44 +159,27 @@ object Biblioteca {
             mime.contains("pdf") -> "pdf"
             else -> "txt"
         }
-        val livro = Livro(uri.toString(), nome.substringBeforeLast('.'), formato = formato, tamanho = tamanho,
-            data = System.currentTimeMillis())
-        todos(ctx)[livro.chave] = livro
-        salvar(ctx)
-        return livro
-    }
+        // Mesmo nome e tamanho = mesmo livro: não importa duas vezes
+        val destino = File(pasta(ctx), Integer.toHexString("$nome|$tamanho".hashCode()) + "." + formato)
+        val chave = Uri.fromFile(destino).toString()
+        synchronized(this) { todos(ctx)[chave] }?.let { if (destino.length() > 0) return it }
 
-    /** Procura livros no armazenamento e acrescenta os novos (não mexe no progresso dos que já existem). */
-    fun procurar(ctx: Context) {
-        val achados = HashMap<String, File>()
-        fun andar(pasta: File, profundidade: Int) {
-            if (profundidade > 14) return
-            for (f in pasta.listFiles() ?: return) {
-                if (f.name.startsWith(".")) continue
-                if (f.isDirectory) {
-                    if (profundidade == 0 && f.name == "Android") continue
-                    andar(f, profundidade + 1)
-                } else {
-                    val formato = Livro.formatoDe(f.name) ?: continue
-                    if (formato == "txt" || f.length() == 0L) continue // .txt só pelo "Abrir livro"
-                    achados[Uri.fromFile(f).toString()] = f
-                }
-            }
+        val temp = File(destino.path + ".tmp")
+        try {
+            val entrada = if (uri.scheme == "file") File(uri.path!!).inputStream()
+            else ctx.contentResolver.openInputStream(uri)!!
+            entrada.use { e -> temp.outputStream().use { e.copyTo(it) } }
+            if (temp.length() == 0L || !temp.renameTo(destino)) throw java.io.IOException("cópia falhou")
+        } finally {
+            temp.delete()
         }
-        andar(Environment.getExternalStorageDirectory(), 0)
-        val escondidos = ocultos(ctx)
+        val livro = Livro(chave, nome.substringBeforeLast('.'), formato = formato, tamanho = destino.length(),
+            data = System.currentTimeMillis())
         synchronized(this) {
-            val m = todos(ctx)
-            // Tira os arquivos que sumiram do celular
-            m.values.filter { it.chave.startsWith("file:") && it.chave !in achados && !File(it.uri.path ?: "").exists() }
-                .forEach { m.remove(it.chave) }
-            for ((chave, f) in achados) {
-                if (chave in m || chave in escondidos) continue
-                m[chave] = Livro(chave, f.nameWithoutExtension, formato = Livro.formatoDe(f.name)!!,
-                    tamanho = f.length(), data = f.lastModified())
-            }
+            todos(ctx)[chave] = livro
             salvar(ctx)
         }
+        return livro
     }
 
     /** Lê título, autor e capa dos livros que ainda não foram lidos. Chama [aoAtualizar] de vez em quando. */

@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Book Reader</string>
+    <string name="inicio">Home</string>
+    <string name="biblioteca">Library</string>
+    <string name="loja">Store</string>
+    <string name="continuar_lendo">Continue reading</string>
     <string name="lendo_agora">Reading now</string>
-    <string name="livros">Books</string>
-    <string name="favoritos">⭐ Favorites</string>
-    <string name="para_ler">🕘 To read</string>
-    <string name="lidos">✓ Finished</string>
-    <string name="buscar">Search book or author</string>
-    <string name="abrir_arquivo">Open book</string>
-    <string name="procurando">Looking for books…</string>
+    <string name="para_ler">To read</string>
+    <string name="adicionados">Recently added</string>
+    <string name="lidos">Finished</string>
+    <string name="todos">All</string>
+    <string name="favoritos">Favorites</string>
+    <string name="buscar">Search title or author</string>
+    <string name="importar">Import PDF or EPUB</string>
+    <string name="importar_curto">Import</string>
+    <string name="importando">Importing…</string>
+    <string name="importado">Book added to your library</string>
+    <string name="boas_vindas">Your library starts here</string>
+    <string name="boas_vindas_texto">Import PDF or EPUB books (also FB2 and TXT) and read or listen any time.</string>
     <string name="nenhum">No books here.</string>
-    <string name="permissao_texto">To find the books (EPUB, FB2 and PDF) on your phone, the app needs file access. It only reads books and nothing leaves your phone.</string>
-    <string name="permitir">Allow access</string>
-    <string name="favorito">Favorite</string>
-    <string name="marcar_para_ler">To read</string>
-    <string name="marcar_lido">Finished</string>
+    <string name="loja_titulo">Our library is coming</string>
+    <string name="loja_texto">Soon you\'ll be able to pick books right here and start reading at once. Meanwhile, import your own PDF or EPUB books.</string>
+    <string name="em_breve">COMING SOON</string>
     <string name="autor_desconhecido">Unknown author</string>
     <string name="abrindo">Opening…</string>
     <string name="erro_abrir">Couldn\'t open this book.</string>
@@ -39,6 +46,36 @@
     <string name="marcar_como_lido">Mark as finished</string>
     <string name="pagina_de">%1$d / %2$d</string>
     <string name="remover">Remove from library</string>
+    <string name="remover_pergunta">Remove \"%1$s\" from the library?</string>
     <string name="mais">More options</string>
     <string name="fechar">Close</string>
+    <string name="detalhes">Title details</string>
+    <string name="ler">Read</string>
+    <string name="ouvir">Listen</string>
+    <string name="add_favoritos">Add to favorites</string>
+    <string name="tirar_favoritos">Remove from favorites</string>
+    <string name="add_para_ler">Add to To read</string>
+    <string name="tirar_para_ler">Remove from To read</string>
+    <string name="desmarcar_lido">Mark as unread</string>
+    <string name="compartilhar">Share</string>
+    <string name="compartilhar_com">Share book</string>
+    <string name="detalhes_texto">Author: %1$s
+Format: %2$s
+Size: %3$s
+Read: %4$d%%</string>
+    <string name="restante">%1$s left</string>
+    <string name="velocidade">Speed</string>
+    <string name="paragrafo_anterior">Previous paragraph</string>
+    <string name="proximo_paragrafo">Next paragraph</string>
+    <string name="tocar">Play</string>
+    <string name="pausar">Pause</string>
+    <string name="ouvindo">Listening</string>
+    <string name="canal_ouvir">Read aloud</string>
+    <string name="sem_voz">No text-to-speech voice is installed. Install one in Settings › Accessibility › Text-to-speech output.</string>
+    <string name="pdf_sem_audio">PDF books can\'t be read aloud. Use EPUB, FB2 or TXT.</string>
+    <string name="capitulo_de">%1$s — %2$s</string>
+    <string name="marcado_lido">Marked as finished</string>
+    <string name="erro_importar">Could not import this file.</string>
+    <string name="removido">Removed from library</string>
+    <string name="ver_tudo">See all</string>
 </resources>

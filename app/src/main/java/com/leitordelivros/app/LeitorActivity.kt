@@ -33,9 +33,11 @@ import java.util.concurrent.Executors
 /** Lê um livro: EPUB, FB2 e TXT numa página que rola; PDF em páginas com zoom. */
 class LeitorActivity : Activity() {
 
-    private companion object {
-        const val PREFS = "leitura"
-        val TEMAS = arrayOf(
+    companion object {
+        /** Livro da biblioteca (a chave); de outros apps vem como intent.data */
+        const val EXTRA_CHAVE = "chave"
+        private const val PREFS = "leitura"
+        private val TEMAS = arrayOf(
             arrayOf("#FFFFFF", "#1F1F1F", "#1565C0"), // claro
             arrayOf("#F6EEDB", "#4A3B28", "#8A5A12"), // sépia
             arrayOf("#121212", "#D2D2D2", "#F7A928"), // escuro
@@ -61,6 +63,8 @@ class LeitorActivity : Activity() {
     private var fracao = 0f
     private var fracaoPendente: Float? = null
     private var barrasVisiveis = true
+    /** Hora da última posição guardada por esta tela */
+    private var lidoAte = 0L
 
     private val fundo = Executors.newSingleThreadExecutor()
     private val principal = Handler(Looper.getMainLooper())
@@ -70,10 +74,7 @@ class LeitorActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leitor)
 
-        val uri = intent.data ?: run { finish(); return }
-        livro = Biblioteca.registrar(this, uri, intent.type)
-        capitulo = livro.capitulo
-        fracao = livro.posicao
+        val uri = intent.getStringExtra(EXTRA_CHAVE)?.let { Uri.parse(it) } ?: intent.data ?: run { finish(); return }
 
         conteudo = findViewById(R.id.conteudo)
         carregando = findViewById(R.id.carregando)
@@ -98,8 +99,11 @@ class LeitorActivity : Activity() {
             insets
         }
 
-        findViewById<TextView>(R.id.tituloLeitor).text = livro.titulo
         findViewById<View>(R.id.btnVoltar).setOnClickListener { finish() }
+        findViewById<View>(R.id.btnOuvirLeitor).setOnClickListener {
+            guardarPosicao()
+            startActivity(Intent(this, OuvirActivity::class.java).putExtra(OuvirActivity.EXTRA_CHAVE, livro.chave))
+        }
         findViewById<View>(R.id.btnSumario).setOnClickListener { mostrarSumario() }
         findViewById<View>(R.id.btnAparencia).setOnClickListener { mostrarAparencia() }
         seek.max = 1000
@@ -111,7 +115,41 @@ class LeitorActivity : Activity() {
             override fun onStopTrackingTouch(s: SeekBar) = pularPara(s.progress / 1000f)
         })
 
-        if (livro.formato == "pdf") abrirPdf() else abrirTexto()
+        val conhecido = Biblioteca.buscar(this, uri.toString())
+        if (conhecido != null) {
+            iniciar(conhecido)
+        } else {
+            // Veio de outro app: copia para a biblioteca primeiro
+            fundo.execute {
+                val l = try { Biblioteca.importar(this, uri, intent.type) } catch (e: Exception) { null }
+                if (l != null) try { Biblioteca.lerMetadados(this) {} } catch (e: Exception) { }
+                principal.post {
+                    if (isDestroyed) return@post
+                    if (l == null) erro(R.string.erro_abrir) else iniciar(l)
+                }
+            }
+        }
+    }
+
+    private fun iniciar(l: Livro) {
+        livro = l
+        capitulo = l.capitulo
+        fracao = l.posicao
+        lidoAte = l.ultimaLeitura
+        findViewById<TextView>(R.id.tituloLeitor).text = l.titulo
+        if (l.formato == "pdf") {
+            findViewById<View>(R.id.btnOuvirLeitor).visibility = View.GONE
+            abrirPdf()
+        } else abrirTexto()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Ouviu um pedaço no player: continua a leitura de onde a voz parou
+        if (::livro.isInitialized && fonte != null && livro.ultimaLeitura > lidoAte) {
+            lidoAte = livro.ultimaLeitura
+            irPara(livro.capitulo, livro.posicao)
+        }
     }
 
     override fun onPause() {
@@ -149,12 +187,14 @@ class LeitorActivity : Activity() {
     }
 
     private fun guardarPosicao() {
-        if (fonte == null && pdf == null) return
+        if (!::livro.isInitialized || fonte == null && pdf == null) return
         medirFracao()
         livro.capitulo = capitulo
         livro.posicao = fracao
         livro.progresso = progressoGeral()
         livro.ultimaLeitura = System.currentTimeMillis()
+        livro.rotulo = capituloAtual.text.toString()
+        lidoAte = livro.ultimaLeitura
         Biblioteca.salvar(this)
     }
 
@@ -384,7 +424,7 @@ class LeitorActivity : Activity() {
                         livro.lido = true
                         livro.paraLer = false
                         Biblioteca.salvar(this@LeitorActivity)
-                        Toast.makeText(this@LeitorActivity, R.string.marcar_lido, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LeitorActivity, R.string.marcado_lido, Toast.LENGTH_SHORT).show()
                     }
                 }
                 url.toString().startsWith(Fonte.BASE) -> {

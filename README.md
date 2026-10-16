@@ -2,8 +2,13 @@
 
 Leitor de livros para Android: EPUB, FB2, PDF e TXT.
 
-- **Biblioteca** com as capas: encontra sozinho os livros do celular
-- Seções: **Lendo agora**, Livros, **Favoritos**, **Para ler** e **Lidos**
+- Visual escuro azul-noite e laranja, com três abas: **Início**, **Biblioteca** e **Loja**
+- **Importar** livros em PDF ou EPUB (também FB2 e TXT): o app guarda uma cópia, então o livro não some da biblioteca
+- **Início** com o cartão "Continuar lendo" e prateleiras: Lendo agora, Para ler, Favoritos e Adicionados recentemente
+- **Biblioteca** em grade de capas com filtros: Todos, Lendo agora, Favoritos, Para ler e Lidos
+- **Ouvir**: o celular lê o livro em voz alta (EPUB, FB2 e TXT), com a tela desligada, velocidade de 0,75x a 2x e controles na notificação
+- **Loja**: a nossa própria biblioteca de livros, chegando em breve
+- Menu de cada livro: detalhes, ler, ouvir, favoritos, para ler, concluído, compartilhar e remover
 - Barra de progresso em cada livro e volta exatamente onde você parou
 - Leitura confortável: toque nas laterais (ou botões de volume) para virar a página, no meio para ver o menu
 - **Temas** claro, sépia e escuro, fonte com ou sem serifa e tamanho da letra

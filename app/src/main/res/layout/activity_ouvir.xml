@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/raizOuvir"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo">
+
+    <!-- Capa desfocada no fundo -->
+    <ImageView
+        android:id="@+id/fundoCapa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.55"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#990A1220" />
+
+    <LinearLayout
+        android:id="@+id/raiz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <ImageButton
+                android:id="@+id/btnFecharOuvir"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/selo"
+                android:contentDescription="@string/fechar"
+                android:src="@drawable/ic_baixo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btnLerTexto"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/selo"
+                android:contentDescription="@string/ler"
+                android:src="@drawable/ic_livro" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.leitordelivros.app.CapaView
+                android:id="@+id/capaOuvir"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="12dp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/capituloOuvir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:letterSpacing="0.06"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:singleLine="true"
+            android:textAllCaps="true"
+            android:textColor="@color/texto"
+            android:textSize="14sp" />
+
+        <SeekBar
+            android:id="@+id/seekOuvir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:progressTint="@color/destaque"
+            android:thumbTint="@color/destaque" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <TextView
+                android:id="@+id/decorrido"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/texto"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/restante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/texto"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="28dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnVelocidadeOuvir"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:contentDescription="@string/velocidade"
+                android:gravity="center"
+                android:text="1.0x"
+                android:textColor="@color/texto"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnAnteriorOuvir"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="10dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/paragrafo_anterior"
+                android:src="@drawable/ic_anterior" />
+
+            <ImageButton
+                android:id="@+id/btnPlayOuvir"
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@drawable/botao_redondo"
+                android:contentDescription="@string/tocar"
+                android:src="@drawable/ic_play"
+                android:tint="@color/fundo" />
+
+            <ImageButton
+                android:id="@+id/btnSeguinteOuvir"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="10dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/proximo_paragrafo"
+                android:src="@drawable/ic_seguinte" />
+
+            <ImageButton
+                android:id="@+id/btnSumarioOuvir"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/sumario"
+                android:src="@drawable/ic_sumario" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
