@@ -67,7 +67,11 @@ Sua biblioteca no bolso. Leia livros EPUB, FB2, PDF e TXT com conforto, sem anú
 - Imagem de destaque 1024 × 500 px
 - Pelo menos 2 capturas de tela: a biblioteca com as capas, um livro aberto no tema sépia e o sumário
 
-**Política de privacidade (URL):** o texto está em [politica-de-privacidade.md](politica-de-privacidade.md). O link precisa abrir para qualquer pessoa: copie o texto para o seu repositório público `politica-privacidade` (por exemplo `leitor-de-livros.md`) e use o link desse arquivo.
+**Política de privacidade (URL):**
+
+```
+https://github.com/patreseoficial-design/politica-privacidade/blob/main/leitor-de-livros.md
+```
 
 ---
 
