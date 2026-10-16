@@ -52,7 +52,7 @@
         <activity
             android:name=".OuvirActivity"
             android:exported="false"
-            android:launchMode="singleTop"
+            android:launchMode="singleTop" />
 
         <service
             android:name=".ServicoOuvir"
