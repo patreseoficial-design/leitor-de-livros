@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Baixar os livros grátis da Loja (Project Gutenberg) e as capas -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <!-- Ouvir o livro em voz alta com a tela desligada -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />

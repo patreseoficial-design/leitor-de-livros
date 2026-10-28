@@ -112,59 +112,138 @@
             </FrameLayout>
         </LinearLayout>
 
-        <!-- Loja (em breve) -->
-        <ScrollView
+        <!-- Loja: livros grátis em domínio público, por faixa etária e gênero -->
+        <LinearLayout
             android:id="@+id/painelLoja"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/conteudoLoja"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="16dp">
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/loja"
+                    android:textColor="@color/texto"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/idiomaLoja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/chip"
+                    android:drawableEnd="@drawable/ic_baixo"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="@color/texto2"
+                    android:gravity="center"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/contagemLoja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/texto2"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/buscaLoja"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/campo"
+                android:drawableStart="@drawable/ic_busca"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/texto2"
+                android:hint="@string/buscar"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/texto2"
+                android:textSize="16sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/chipsFaixa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/chip_selecionado"
-                    android:paddingStart="12dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/em_breve"
-                    android:textColor="@color/destaque_escuro"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="16dp" />
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/chipsGenero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="6dp" />
+            </HorizontalScrollView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <GridView
+                    android:id="@+id/gradeLoja"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:horizontalSpacing="12dp"
+                    android:numColumns="3"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="24dp"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="16dp" />
 
                 <TextView
+                    android:id="@+id/vazioLoja"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/loja_titulo"
-                    android:textColor="@color/destaque"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:lineSpacingExtra="4dp"
-                    android:text="@string/loja_texto"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="32dp"
+                    android:text="@string/nenhum"
                     android:textColor="@color/texto2"
-                    android:textSize="17sp" />
-
-                <FrameLayout
-                    android:id="@+id/pilhaCapas"
-                    android:layout_width="match_parent"
-                    android:layout_height="320dp"
-                    android:layout_marginTop="24dp" />
-            </LinearLayout>
-        </ScrollView>
+                    android:textSize="16sp" />
+            </FrameLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnImportar"

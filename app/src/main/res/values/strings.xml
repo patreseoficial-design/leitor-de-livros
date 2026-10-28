@@ -17,11 +17,8 @@
     <string name="importando">Importando…</string>
     <string name="importado">Livro adicionado à biblioteca</string>
     <string name="boas_vindas">Sua biblioteca começa aqui</string>
-    <string name="boas_vindas_texto">Importe livros em PDF ou EPUB (também FB2 e TXT) e leia ou ouça quando quiser.</string>
+    <string name="boas_vindas_texto">Importe livros em PDF ou EPUB (também FB2 e TXT) ou pegue livros grátis na Loja, e leia ou ouça quando quiser.</string>
     <string name="nenhum">Nenhum livro aqui.</string>
-    <string name="loja_titulo">Nossa biblioteca está chegando</string>
-    <string name="loja_texto">Em breve você vai poder escolher livros direto aqui no app e começar a ler na hora. Enquanto isso, importe os seus livros em PDF ou EPUB.</string>
-    <string name="em_breve">EM BREVE</string>
     <string name="autor_desconhecido">Autor desconhecido</string>
     <string name="abrindo">Abrindo…</string>
     <string name="erro_abrir">Não foi possível abrir este livro.</string>
@@ -78,4 +75,43 @@ Lido: %4$d%%</string>
     <string name="erro_importar">Não foi possível importar este arquivo.</string>
     <string name="removido">Removido da biblioteca</string>
     <string name="ver_tudo">Ver tudo</string>
+    <string name="na_biblioteca">✓ Na biblioteca</string>
+    <string name="loja_contagem">%1$s livros grátis · domínio público</string>
+    <string name="idioma_todos">Todos os idiomas</string>
+    <string name="faixa_todas">Todas as idades</string>
+    <string name="generos_todos">Todos os gêneros</string>
+    <string name="baixar_ler">Baixar e ler</string>
+    <string name="baixando">Baixando o livro…</string>
+    <string name="erro_baixar">Não foi possível baixar o livro. Confira a internet e tente de novo.</string>
+    <string name="loja_info">%1$s\n\n%2$s · %3$s\nIdioma: %4$s\n\nLivro grátis em domínio público, do Project Gutenberg.</string>
+    <string name="ver_loja">Ver livros grátis</string>
+    <string-array name="faixas_loja">
+        <item>Infantil · até 8 anos</item>
+        <item>Juvenil · 9 a 14</item>
+        <item>Adulto · 15+</item>
+    </string-array>
+    <string-array name="faixas_curto">
+        <item>Infantil</item>
+        <item>Juvenil</item>
+        <item>Adulto</item>
+    </string-array>
+    <string-array name="generos_loja">
+        <item>Contos de fadas e fábulas</item>
+        <item>Aventura</item>
+        <item>Mistério e policial</item>
+        <item>Ficção científica e fantasia</item>
+        <item>Terror</item>
+        <item>Romances</item>
+        <item>Contos e histórias</item>
+        <item>Humor</item>
+        <item>Poesia</item>
+        <item>Teatro</item>
+        <item>Biografias</item>
+        <item>História</item>
+        <item>Filosofia</item>
+        <item>Religião</item>
+        <item>Ciência</item>
+        <item>Viagens</item>
+        <item>Ensaios e outros</item>
+    </string-array>
 </resources>

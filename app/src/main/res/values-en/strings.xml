@@ -17,11 +17,8 @@
     <string name="importando">Importing…</string>
     <string name="importado">Book added to your library</string>
     <string name="boas_vindas">Your library starts here</string>
-    <string name="boas_vindas_texto">Import PDF or EPUB books (also FB2 and TXT) and read or listen any time.</string>
+    <string name="boas_vindas_texto">Import PDF or EPUB books (also FB2 and TXT) or get free books in the Store, and read or listen any time.</string>
     <string name="nenhum">No books here.</string>
-    <string name="loja_titulo">Our library is coming</string>
-    <string name="loja_texto">Soon you\'ll be able to pick books right here and start reading at once. Meanwhile, import your own PDF or EPUB books.</string>
-    <string name="em_breve">COMING SOON</string>
     <string name="autor_desconhecido">Unknown author</string>
     <string name="abrindo">Opening…</string>
     <string name="erro_abrir">Couldn\'t open this book.</string>
@@ -78,4 +75,43 @@ Read: %4$d%%</string>
     <string name="erro_importar">Could not import this file.</string>
     <string name="removido">Removed from library</string>
     <string name="ver_tudo">See all</string>
+    <string name="na_biblioteca">✓ In your library</string>
+    <string name="loja_contagem">%1$s free books · public domain</string>
+    <string name="idioma_todos">All languages</string>
+    <string name="faixa_todas">All ages</string>
+    <string name="generos_todos">All genres</string>
+    <string name="baixar_ler">Download and read</string>
+    <string name="baixando">Downloading the book…</string>
+    <string name="erro_baixar">Couldn\'t download the book. Check your connection and try again.</string>
+    <string name="loja_info">%1$s\n\n%2$s · %3$s\nLanguage: %4$s\n\nFree public domain book from Project Gutenberg.</string>
+    <string name="ver_loja">See free books</string>
+    <string-array name="faixas_loja">
+        <item>Kids · up to 8</item>
+        <item>Young readers · 9 to 14</item>
+        <item>Adults · 15+</item>
+    </string-array>
+    <string-array name="faixas_curto">
+        <item>Kids</item>
+        <item>Young readers</item>
+        <item>Adults</item>
+    </string-array>
+    <string-array name="generos_loja">
+        <item>Fairy tales and fables</item>
+        <item>Adventure</item>
+        <item>Mystery and crime</item>
+        <item>Science fiction and fantasy</item>
+        <item>Horror</item>
+        <item>Novels</item>
+        <item>Short stories</item>
+        <item>Humor</item>
+        <item>Poetry</item>
+        <item>Drama</item>
+        <item>Biographies</item>
+        <item>History</item>
+        <item>Philosophy</item>
+        <item>Religion</item>
+        <item>Science</item>
+        <item>Travel</item>
+        <item>Essays and more</item>
+    </string-array>
 </resources>

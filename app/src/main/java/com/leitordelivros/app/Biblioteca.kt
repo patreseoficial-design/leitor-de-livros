@@ -35,6 +35,10 @@ class Livro(
     var metaLida: Boolean = false,
     /** Nome do capítulo onde parou (aparece em "Continuar lendo") */
     var rotulo: String = "",
+    /** Faixa etária dos livros da Loja: 0 Infantil, 1 Juvenil, 2 Adulto (-1 = importado) */
+    var faixa: Int = -1,
+    /** Gênero dos livros da Loja (índice em generos_loja; -1 = importado) */
+    var genero: Int = -1,
 ) {
     val uri: Uri get() = Uri.parse(chave)
 
@@ -43,7 +47,7 @@ class Livro(
         .put("tamanho", tamanho).put("data", data).put("capa", capa).put("progresso", progresso.toDouble())
         .put("capitulo", capitulo).put("posicao", posicao.toDouble()).put("favorito", favorito)
         .put("paraLer", paraLer).put("lido", lido).put("ultimaLeitura", ultimaLeitura).put("metaLida", metaLida)
-        .put("rotulo", rotulo)
+        .put("rotulo", rotulo).put("faixa", faixa).put("genero", genero)
 
     companion object {
         val FORMATOS = listOf("epub", "fb2", "pdf", "txt")
@@ -68,6 +72,8 @@ class Livro(
             ultimaLeitura = o.optLong("ultimaLeitura"),
             metaLida = o.optBoolean("metaLida"),
             rotulo = o.optString("rotulo"),
+            faixa = o.optInt("faixa", -1),
+            genero = o.optInt("genero", -1),
         )
     }
 }
