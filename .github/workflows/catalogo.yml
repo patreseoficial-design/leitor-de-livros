@@ -1,0 +1,43 @@
+name: Atualizar catálogo da Loja
+
+# Baixa o catálogo do Project Gutenberg e gera a lista de livros grátis
+# (app/src/main/assets/catalogo.json). Rode em Actions → "Atualizar catálogo
+# da Loja" → Run workflow quando quiser atualizar a lista.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - tools/gerar_catalogo.py
+      - .github/workflows/catalogo.yml
+
+permissions:
+  contents: write
+
+jobs:
+  catalogo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Baixar catálogo do Project Gutenberg
+        run: |
+          curl -fsSL --retry 3 -o rdf-files.tar.bz2 \
+            https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2
+
+      - name: Gerar lista de livros
+        run: |
+          mkdir -p app/src/main/assets
+          python3 tools/gerar_catalogo.py rdf-files.tar.bz2 app/src/main/assets/catalogo.json
+
+      - name: Salvar no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/catalogo.json
+          if git diff --cached --quiet; then
+            echo "Catálogo sem mudanças"
+          else
+            git commit -m "Atualiza o catálogo de livros grátis da Loja"
+            git push
+          fi
