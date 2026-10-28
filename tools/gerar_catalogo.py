@@ -231,6 +231,7 @@ def ler_livro(raiz):
         "id": gid, "titulo": titulo, "autor": autor, "idioma": idiomas[0],
         "faixa": faixa, "genero": genero,
         "downloads": int(downloads) if downloads.isdigit() else 0,
+        "pistas": " | ".join(assuntos + estantes + ["LCC " + c for c in lcc]),
     }
 
 
@@ -285,6 +286,14 @@ def main(origem, destino):
     print(f"Total: {len(escolhidos)} livros")
     print("Por faixa:", dict(Counter(l["faixa"] for l in escolhidos)))
     print("Por gênero:", {GENEROS[g]: n for g, n in sorted(Counter(l["genero"] for l in escolhidos).items())})
+    # Para calibrar a classificação: assuntos dos livros mais baixados de cada idioma
+    import os
+    if os.environ.get("PISTAS"):
+        with open(os.environ["PISTAS"], "w", encoding="utf-8") as f:
+            for idioma, n in (("pt", 2000), ("es", 1200), ("en", 3500)):
+                for l in [l for l in unicos if l["idioma"] == idioma][:n]:
+                    f.write("\t".join(map(str, [l["id"], idioma, l["downloads"], l["titulo"], l["autor"], l["pistas"]])) + "\n")
+
     if len(escolhidos) < 1000:
         sys.exit(f"Poucos livros ({len(escolhidos)}): o catálogo deveria ter pelo menos 1000")
 
