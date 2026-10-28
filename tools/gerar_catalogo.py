@@ -62,51 +62,57 @@ NS = {
 }
 RDF_RES = "{%s}resource" % NS["rdf"]
 
-PROIBIDO = re.compile(r"erotic|pornograph|sex instruction|sexual|obscen|sadism|masochism", re.I)
-INFANTIL = re.compile(
-    r"picture books|nursery rhymes|alphabet|readers \(primary\)|children's poetry|lullab|"
-    r"toy and movable|children's songs|fairy tales|fables|children's myths|rimas infantis|"
-    r"counting|mother goose|bedtime", re.I)
-JOVEM = re.compile(r"juvenile|children's|children &|young adult|infantil|juvenil|school stories", re.I)
+PROIBIDO = re.compile(r"erotic|pornograph|sex instruction|sexual|obscen|sadism|masochism|periodicals|PT Periódicos", re.I)
 
-FICCAO = re.compile(r"fiction|stories|novel|romance|tales|ficção|contos|novela|cuentos|legends|fables|fairy", re.I)
-REGRAS_FICCAO = [
-    ("contos_de_fadas", r"fairy|fables|folklore|legends|mytholog|myths|nursery|fábula|conto de fada|contos populares|mother goose"),
-    ("terror", r"horror|ghost|gothic|vampire|supernatural|haunted|werewol"),
-    ("misterio", r"detective|mystery|crime|murder|policial|spy stories|thieves|criminal"),
-    ("ficcao_cientifica", r"science fiction|fantasy|utopia|dystopia|time travel|imaginary|space|martians|interplanetary|lost worlds|fantas"),
-    ("aventura", r"adventure|sea stories|pirates|western|explorers|frontier|robinsonades|shipwreck|voyages|war stories|aventura|cowboys|treasure"),
-    ("humor", r"humor|humorous|satire|comic|wit and"),
-    ("contos", r"short stories|contos|cuentos"),
+# Faixa etária
+JOVEM = re.compile(r"juvenile|children's|children & young|young adult fiction|infantil|juvenil|school stories", re.I)
+INFANTIL = re.compile(
+    r"picture books|nursery rhymes|alphabet|readers \(primary\)|children's poetry|lullab|toy and movable|"
+    r"children's songs|fairy tales|fables|children's myths|mother goose|counting|bedtime|"
+    r"animals -- juvenile|easy reading|rimas infantis|contos infantis", re.I)
+
+# Gênero: primeiro as estantes "Category:" do Gutenberg, que são bem confiáveis;
+# depois os assuntos (LCSH) e as estantes em português ("PT Poesia"...).
+def _r(x):
+    return re.compile(x, re.I)
+
+REGRAS = [
+    ("teatro", _r(r"Category: Plays|PT Teatro|-- Drama\b|^Drama$|\bTragedies|\bComedies \(|English drama|Portuguese drama")),
+    ("poesia", _r(r"Category: Poetry|PT Poesia|\bpoetry\b|\bpoems\b|sonnets|children's poetry")),
+    ("terror", _r(r"horror tales|ghost stories|vampires -- fiction|haunted houses -- fiction|Category: Horror")),
+    ("misterio", _r(r"Category: Crime, Thrillers|detective and mystery|mystery fiction|spy stories")),
+    ("ficcao_cientifica", _r(r"Category: Science-Fiction|science fiction|fantasy fiction|utopias|time travel -- fiction")),
+    ("aventura", _r(r"Category: Adventure|adventure stories|sea stories|pirates -- fiction|western stories|PT Navegações")),
+    ("romances", _r(r"Category: Novels|Category: Historical Novels|Category: Romance|PT Romance")),
+    ("contos_de_fadas", _r(r"Category: Mythology|fairy tales|fables|folklore|legends|mythology|children's myths")),
+    ("humor", _r(r"Category: Humour")),
+    ("contos", _r(r"Category: Short Stories|PT Contos|short stories|children's stories")),
+    ("romances", _r(r"Category: Novels|Category: Romance|Category: Historical Novels|PT Romance|\bfiction\b|\bnovel")),
+    ("biografias", _r(r"Category: Biographies|PT Biografia|biography|autobiograph|memoirs|diaries")),
+    ("historia", _r(r"Category: History|PT História|Category: Archaeology|\bhistory\b")),
+    ("religiao", _r(r"Category: Religion|bible|theology|sermons|christian life")),
+    ("filosofia", _r(r"Category: Philosophy|Category: Psychiatry|philosophy|ethics")),
+    ("ciencia", _r(r"Category: Science|Category: Nature|Category: Mathematics|Category: Health|Category: Engineering|PT Ciência|natural history")),
+    ("viagens", _r(r"Category: Travel|description and travel|voyages and travels")),
 ]
-REGRAS_OUTRAS = [
-    ("poesia", r"poetry|poems|verse|sonnets|ballads|poesia|poesía|epic|hymns"),
-    ("teatro", r"drama|plays|tragedies|comedies|teatro|theater|farces"),
-    ("biografias", r"biography|autobiograph|memoirs|diaries|correspondence|letters|biografia"),
-    ("historia", r"history|historia|história|civilization|wars|antiquities|revolution|politics and government"),
-    ("filosofia", r"philosophy|ethics|psychology|logic|filosofia|conduct of life|political science"),
-    ("religiao", r"religion|bible|christian|sermons|theology|church|catholic|god|prayer|spiritual|saints"),
-    ("ciencia", r"science|mathematics|natural history|astronomy|biology|medicine|physics|chemistry|botany|zoology|evolution|geology|economics"),
-    ("viagens", r"travel|voyages|description and travel|discovery and exploration|viagens|viajes"),
-    ("humor", r"humor|wit and humor|satire"),
-]
-REGRAS_FICCAO = [(G[n], re.compile(r, re.I)) for n, r in REGRAS_FICCAO]
-REGRAS_OUTRAS = [(G[n], re.compile(r, re.I)) for n, r in REGRAS_OUTRAS]
+REGRAS = [(G[n], rx) for n, rx in REGRAS]
 
 
 def valores(no, caminho):
     return [v.text.strip() for v in no.findall(caminho, NS) if v.text and v.text.strip()]
 
 
+TITULOS_NOBRES = re.compile(r"(Emperor|Empress|King|Queen|Saint|Pope|Lord|Sir|Lady|Duke|Count|Prince|Princess|graf|of)\b")
+
+
 def nome_autor(cru):
-    """'Assis, Machado de' → 'Machado de Assis'; tira datas e parênteses."""
+    """'Assis, Machado de' → 'Machado de Assis'; 'Tolstoy, Leo, graf' → 'Leo Tolstoy'."""
     n = re.sub(r"\s*\(.*?\)", "", cru).strip()
-    if "," in n:
-        sobrenome, resto = n.split(",", 1)
-        resto = resto.strip()
-        # "Fulano, Jr." e afins ficam como estão
-        if resto and not re.fullmatch(r"(Jr|Sr|II|III)\.?", resto):
-            n = f"{resto} {sobrenome.strip()}"
+    partes = [p.strip() for p in n.split(",") if p.strip()]
+    if len(partes) >= 2 and not TITULOS_NOBRES.match(partes[1]) and not re.fullmatch(r"(Jr|Sr|II|III)\.?", partes[1]):
+        n = f"{partes[1]} {partes[0]}"
+    elif partes:
+        n = partes[0]
     return re.sub(r"\s+", " ", n).strip()
 
 
@@ -136,43 +142,38 @@ def livre_no_brasil(gente):
 
 def limpar_titulo(t):
     t = t.replace("\r", "").split("\n")[0]
+    t = re.sub(r"\s*:\s*\$b\s*", ": ", t)
+    t = t.replace("[", "").replace("]", "")
     t = re.sub(r"\s+", " ", t).strip(" :;,.")
     return t
 
 
-def classificar(assuntos, estantes, lcc):
-    texto = " | ".join(assuntos + estantes)
-    jovem = bool(JOVEM.search(texto)) or any(c.startswith("PZ") for c in lcc)
-    infantil = bool(INFANTIL.search(texto)) and (jovem or re.search(r"fairy|fables|nursery|mother goose", texto, re.I))
+# Títulos que dizem a idade (os livros em português e espanhol quase não têm assuntos infantis)
+TITULO_INFANTIL = re.compile(r"\bfábulas\b|cuento infantil|cuentos infantiles|contos infantis|cartilha|para niños|para crianças", re.I)
+TITULO_JOVEM = re.compile(r"infância|para a infancia|para meninos|para meninas|diario de un niño|para la juventud|para a juventude", re.I)
+NAO_FICCAO = {"biografias", "historia", "filosofia", "religiao", "ciencia", "viagens", "outros"}
+
+
+def classificar(assuntos, estantes, lcc, titulo=""):
+    pistas = assuntos + estantes
+    texto = "\n".join(pistas)
+    genero = G["outros"]
+    for g, rx in REGRAS:
+        if any(rx.search(p) for p in pistas):
+            genero = g
+            break
+
+    juvenil_explicito = re.search(r"juvenile|children's|young adult fiction", texto, re.I)
+    jovem = bool(JOVEM.search(texto))
+    # Memórias de generais e afins marcados só na estante "Children & Young Adult": ficam no Adulto
+    if jovem and not juvenil_explicito and GENEROS[genero] in NAO_FICCAO:
+        jovem = False
+    infantil = jovem and INFANTIL.search(texto) or TITULO_INFANTIL.search(titulo)
+    jovem = jovem or TITULO_JOVEM.search(titulo)
     faixa = 0 if infantil else 1 if jovem else 2
 
-    ficcao = bool(FICCAO.search(texto)) or any(c[:2] in ("PZ",) for c in lcc)
-    genero = None
-    if ficcao:
-        for g, rx in REGRAS_FICCAO:
-            if rx.search(texto):
-                genero = g
-                break
-        if genero is None:
-            # Poesia e teatro às vezes vêm marcados com "Portuguese literature", "tales in verse"...
-            for g, rx in REGRAS_OUTRAS[:2]:
-                if rx.search(texto):
-                    genero = g
-                    break
-        if genero is None:
-            # Ficção infantil sem outra pista: histórias curtas, não "romance"
-            genero = G["contos"] if faixa < 2 else G["romances"]
-    else:
-        for g, rx in REGRAS_OUTRAS:
-            if rx.search(texto):
-                genero = g
-                break
-        if genero is None:
-            # Literatura sem outra pista ("Brazilian literature", LCC P*) costuma ser romance
-            if any(c.startswith("P") for c in lcc) and re.search(r"literature|literatura", texto, re.I):
-                genero = G["romances"]
-            else:
-                genero = G["outros"]
+    if faixa == 0 and genero in (G["romances"], G["outros"]):
+        genero = G["contos"]
     return faixa, genero
 
 
@@ -226,7 +227,7 @@ def ler_livro(raiz):
     autor = ", ".join(nomes[:2]) + (" e outros" if len(nomes) > 2 else "")
 
     downloads = livro.findtext("pgterms:downloads", default="0", namespaces=NS)
-    faixa, genero = classificar(assuntos, estantes, lcc)
+    faixa, genero = classificar(assuntos, estantes, lcc, titulo)
     return {
         "id": gid, "titulo": titulo, "autor": autor, "idioma": idiomas[0],
         "faixa": faixa, "genero": genero,
